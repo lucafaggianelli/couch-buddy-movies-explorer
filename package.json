@@ -1,0 +1,23 @@
+{
+  "name": "couch-buddy-torrent-explorer",
+  "description": "Movie explorer for Couch Buddy",
+  "version": "1.0.0",
+  "author": "Luca Faggianelli",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "prepare": "npm run build"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "axios": "^0.19.2",
+    "couch-buddy-extensions": "github:CouchBuddy/couch-buddy-extensions"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.2"
+  }
+}
