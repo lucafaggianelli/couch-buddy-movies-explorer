@@ -1,7 +1,7 @@
 {
   "name": "couch-buddy-movies-explorer",
   "description": "Movie explorer for Couch Buddy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Luca Faggianelli",
   "license": "MIT",
   "main": "dist/index.js",
@@ -14,7 +14,8 @@
     "dist"
   ],
   "dependencies": {
-    "axios": "^0.19.2"
+    "axios": "^0.19.2",
+    "couch-buddy-extensions": "github:CouchBuddy/couch-buddy-extensions"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.33.0",
