@@ -15,7 +15,7 @@
   ],
   "dependencies": {
     "axios": "^0.19.2",
-    "couch-buddy-extensions": "github:CouchBuddy/couch-buddy-extensions"
+    "couch-buddy-extensions": "^1.0.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.33.0",
