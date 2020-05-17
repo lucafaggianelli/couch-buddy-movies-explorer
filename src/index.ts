@@ -78,7 +78,7 @@ export default class TorrentExplorer extends CouchBuddyExtension {
     return []
   }
 
-  private toCbMovie (movie: YtsMovie): Movie {
+  toCbMovie (movie: YtsMovie): Movie {
     return {
       backdrop: movie.background_image_original,
       downloadOptions: this.getDownloadOptions(movie),
@@ -94,7 +94,7 @@ export default class TorrentExplorer extends CouchBuddyExtension {
     }
   }
 
-  private getDownloadOptions (movie: YtsMovie): DownloadOption[] {
+  getDownloadOptions (movie: YtsMovie): DownloadOption[] {
     const title = encodeURIComponent(movie.title)
 
     if (Array.isArray(movie.torrents)) {
