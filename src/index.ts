@@ -61,6 +61,36 @@ const TRACKERS = [
   'udp://tracker.internetwarriors.net:1337'
 ].map(t => `&tr=${t}`).join('')
 
+function getDownloadOptions (movie: YtsMovie): DownloadOption[] {
+  const title = encodeURIComponent(movie.title)
+
+  if (Array.isArray(movie.torrents)) {
+    return movie.torrents.map(torrent => ({
+      quality: parseInt(torrent.quality),
+      type: 'torrent',
+      url: `magnet:?xt=urn:btih:${torrent.hash}&dn=${title}${TRACKERS}`
+    }))
+  }
+
+  return []
+}
+
+function toCbMovie (movie: YtsMovie): Movie {
+  return {
+    backdrop: movie.background_image_original,
+    downloadOptions: getDownloadOptions(movie),
+    genre: movie.genres.join(','),
+    imdbId: movie.imdb_code,
+    language: movie.language,
+    plot: movie.description_full,
+    poster: movie.large_cover_image,
+    rated: movie.mpa_rating,
+    runtime: movie.runtime,
+    title: movie.title_english,
+    year: movie.year
+  }
+}
+
 export default class TorrentExplorer extends CouchBuddyExtension {
   name = 'Torrent Explorer';
 
@@ -72,37 +102,7 @@ export default class TorrentExplorer extends CouchBuddyExtension {
 
     if (response.data.status === 'ok') {
       const result = response.data.data as YtsMoviesSearchResult
-      return result.movies.map((movie) => this.toCbMovie(movie))
-    }
-
-    return []
-  }
-
-  toCbMovie (movie: YtsMovie): Movie {
-    return {
-      backdrop: movie.background_image_original,
-      downloadOptions: this.getDownloadOptions(movie),
-      genre: movie.genres.join(','),
-      imdbId: movie.imdb_code,
-      language: movie.language,
-      plot: movie.description_full,
-      poster: movie.large_cover_image,
-      rated: movie.mpa_rating,
-      runtime: movie.runtime,
-      title: movie.title_english,
-      year: movie.year
-    }
-  }
-
-  getDownloadOptions (movie: YtsMovie): DownloadOption[] {
-    const title = encodeURIComponent(movie.title)
-
-    if (Array.isArray(movie.torrents)) {
-      return movie.torrents.map(torrent => ({
-        quality: parseInt(torrent.quality),
-        type: 'torrent',
-        url: `magnet:?xt=urn:btih:${torrent.hash}&dn=${title}${TRACKERS}`
-      }))
+      return result.movies.map(toCbMovie)
     }
 
     return []
