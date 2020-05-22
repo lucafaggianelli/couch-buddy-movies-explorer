@@ -102,7 +102,9 @@ export default class TorrentExplorer extends CouchBuddyExtension {
 
     if (response.data.status === 'ok') {
       const result = response.data.data as YtsMoviesSearchResult
-      return result.movies.map(toCbMovie)
+      if (result.movie_count > 0) {
+        return result.movies.map(toCbMovie)
+      }
     }
 
     return []
